@@ -89,6 +89,8 @@ def load_wav_file(name):
     # data = numpy.fromstring(data0, dtype='uint16')
     data = numpy.fromstring(data0, dtype='uint8')
     data = (data + 128) / 255.  # 0-1 for Better convergence
+    if len(data) == 0:
+      break
     # chunks.append(data)
     chunk.extend(data)
     data0 = f.readframes(CHUNK)
