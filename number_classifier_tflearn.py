@@ -14,6 +14,11 @@ batch=speech_data.wave_batch_generator(10000,target=speech_data.Target.digits)
 X,Y=next(batch)
 Y = [numpy.hstack([y, numpy.array([0, 0, 0, 0, 0, 0])]) for y in Y]
 # Y = map(lambda a: , Y)
+# with open('x.npy', 'wb') as f:
+#     numpy.save(f, numpy.array(X))
+# with open('y.npy', 'wb') as f:
+#     numpy.save(f, numpy.array(Y))
+
 print (type(Y))
 # print (np.hstack([Y[0], np.array([0, 0, 0, 0, 0, 0])]))
 number_classes=16 # Digits
