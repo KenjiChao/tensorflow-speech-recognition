@@ -4,6 +4,7 @@ import pyaudio
 import speech_data
 import numpy
 import os
+import time
 
 # Simple spoken digit recognition demo, with 98% accuracy in under a minute
 
@@ -31,17 +32,12 @@ model = tflearn.DNN(net)
 model.load('pre-trained/model.tflearn.sgd_trained')
 
 # Overfitting okay for now
+for i in range(100):
+    t = time.time()
+    result = model.predict(X)
+    print ("-------------")
 
-demo_file = "5_Vicki_260.wav"
-demo=speech_data.load_wav_file(speech_data.path + demo_file)
-with open('5_Vicki_260.npy', 'wb') as f:
-    numpy.save(f, numpy.expand_dims(numpy.array(demo), axis=0))
-print ("DEMO")
-# print (demo)
-print (len(demo))
-result=model.predict([demo])
-print ("-------------")
-# print (result)
-print (len(result))
-result=numpy.argmax(result)
-print("predicted digit for %s : result = %d "%(demo_file,result))   
+    result = numpy.array([numpy.argmax(r) for r in result])
+    answers = numpy.array([numpy.argmax(answer) for answer in Y])
+
+    print (i, ">>>", (result == answers).sum() / float(len(answers)), "time: ", time.time() - t)  
