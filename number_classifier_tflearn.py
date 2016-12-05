@@ -87,3 +87,4 @@ result=numpy.argmax(result)
 print("predicted digit for %s : result = %d "%(demo_file,result))
 
 save_layer_parameters(model, 'sgd_trained')
+model.save('model.tflearn.sgd_trained')
