@@ -32,7 +32,10 @@ model = tflearn.DNN(net)
 model.load('pre-trained/model.tflearn.sgd_trained')
 
 # Overfitting okay for now
-for i in range(100):
+totalTime = 0
+totalAcc = 0
+numTimes = 100
+for i in range(numTimes):
     t = time.time()
     result = model.predict(X)
     print ("-------------")
@@ -41,3 +44,8 @@ for i in range(100):
     answers = numpy.array([numpy.argmax(answer) for answer in Y])
 
     print (i, ">>>", (result == answers).sum() / float(len(answers)), "time: ", time.time() - t)  
+    totalAcc = totalAcc + (result == answers).sum() / float(len(answers))
+    totalTime = totalTime + time.time() - t
+
+print("Avg. Acc. = ", totalAcc / numTimes)
+print("Avg. time = ", totalTime / numTimes)
